@@ -18,12 +18,8 @@ widedata <- tibble(
 
 widedata_na <- widedata |>
   mutate(
-    across(ends_with("_fu"), \(x) {
-      x[sample.int(n(), size = 0.2 * n())] <- NA   # 20% missing per fu column
-      x
-    }),
-    across(ends_with("_bl"), \(x) {
-      x[sample.int(n(), size = 0.1 * n())] <- NA
+    across(contains("trait"), \(x) {
+      x[sample.int(n(), size = 0.2 * n())] <- NA   # 20% missing
       x
     })
   )
