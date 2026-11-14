@@ -15,10 +15,29 @@ widedata <- tibble(
   trait2_fu = trait2_bl - rnorm(n_samples, 1, .2),
   trait3_fu = trait3_bl + rnorm(n_samples, 1, .1),
 )
+
+widedata_na <- widedata |>
+  mutate(
+    across(ends_with("_fu"), \(x) {
+      x[sample.int(n(), size = 0.2 * n())] <- NA   # 20% missing per fu column
+      x
+    }),
+    across(ends_with("_bl"), \(x) {
+      x[sample.int(n(), size = 0.1 * n())] <- NA
+      x
+    })
+  )
+
 ## long #####
 
 longdata <-
   widedata |>
+  pivot_longer(cols = -ID,
+    names_to = c(".value", "Visit"),
+    names_sep = "_")
+
+longdata_na <-
+  widedata_na |>
   pivot_longer(cols = -ID,
     names_to = c(".value", "Visit"),
     names_sep = "_")

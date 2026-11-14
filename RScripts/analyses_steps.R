@@ -17,4 +17,4 @@
 
 # extract names parts from wide what vs. when ####
 # create more example names in different ways like whatever.1 whatever.2 etc
-# create a function that would do this with a pattern input
+# create a function that would do this with a pattern input using str_glue notation
