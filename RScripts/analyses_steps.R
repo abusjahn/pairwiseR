@@ -22,6 +22,13 @@ w_w_na_2 <- wilcox.test(widedata_na$trait2_bl,
 
 ## from long ####
 ### t-test for trait1 ####
+cbind(longdata_na |>
+  filter(!is.na(trait1), Visit == "bl") |>
+  pull(ID),
+longdata_na |>
+  filter(!is.na(trait1), Visit == "fu") |>
+  pull(ID))
+
 t_l_1 <- t.test(longdata$trait1[longdata$Visit == "bl"],
   longdata$trait1[longdata$Visit == "fu"],
   paired = TRUE)
@@ -56,3 +63,4 @@ compare(t_l_na_1, t_l_na_dropped_1)
 
 # notes ####
 # pairwise long needs ID for matching, probably best to then pivot_wider?!
+# desc for delta
